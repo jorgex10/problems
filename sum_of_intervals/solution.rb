@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 def sum_of_intervals(intervals)
   intervals.sort!
   intervals = overlapping_intervals(intervals)
 
   sum = 0
   intervals.each do |array|
-    sum = sum + (array[1] - array[0])
+    sum += (array[1] - array[0])
   end
 
   sum
@@ -32,7 +34,9 @@ def overlapping_intervals(intervals)
   end
 
   elements = []
-  intervals.each_with_index { |e, i| elements << e unless indexes_to_delete.include?(i)}
+  intervals.each_with_index do |e, i|
+    elements << e unless indexes_to_delete.include?(i)
+  end
   array_to_be_insented.map { |array| elements.push(array) }
 
   elements
