@@ -6,7 +6,7 @@
 def divisor_game(n)
   return false unless valid?(n)
 
-  n % 2 == 0
+  n.even?
 end
 
 private
