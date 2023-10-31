@@ -1,3 +1,4 @@
+=begin
 # KATA FROM CODEWARS
 
 Lyrics...
@@ -21,4 +22,27 @@ longest_slide_down([[3], [7, 4], [2, 4, 6], [8, 5, 9, 3]]) => 23
 
 By the way...
 My tests include some extraordinarily high pyramides so as you can guess, brute-force method is a bad idea unless you have a few centuries to waste. You must come up with something more clever than that.
+=end
 
+def longest_slide_down(pyramid)
+   sum = 0
+   pos = 0
+ 
+   pyramid.each do |sub_array|
+     max = case sub_array.size
+           when 1
+             sub_array[0]
+           when 2
+             sub_array.max
+           else
+             [sub_array[pos], sub_array[pos + 1]].max
+           end
+     sum += max
+     pos = sub_array.each_with_index.select do |x, i|
+       i if x == max && (i == pos || i == pos + 1)
+     end .flatten.last
+   end
+ 
+   sum
+ end
+ 
