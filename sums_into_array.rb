@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # rubocop:disable Style/Documentation
 
 #   Crea una función que encuentre todas las combinaciones de los números
