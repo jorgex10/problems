@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/Documentation
-
 #   Crea una función que encuentre todas las combinaciones de los números
 #   de una lista que suman el valor objetivo.
 #   - La función recibirá una lista de números enteros positivos
@@ -13,6 +11,7 @@
 #     Soluciones: [1, 5] y [1, 3, 2] (ambas combinaciones suman 6)
 #     (Si no existen combinaciones, retornar una lista vacía)
 
+# SumFinder
 class SumFinder
   def initialize(array, target)
     @array = array
@@ -40,7 +39,7 @@ class SumFinder
     return if target.negative? || start == @array.length
 
     # backtraking
-    for index in (start..@array.length) do
+    (start..@array.length).each do |index|
       next if index > start && @array[index] == @array[index - 1]
 
       new_target = target - @array[index].to_i
