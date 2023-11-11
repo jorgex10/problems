@@ -45,7 +45,56 @@
 # ] ); // => 19
 # ```
 
-def sum_intervals(array); end
+# SumIntervals
+class SumIntervals
+  def initialize(array)
+    @array = array
+    @results = []
+  end
 
-array = [[1, 4], [7, 10], [3, 5]]
-puts sum_intervals(array)
+  def calculate
+    (0..@array.length).each do |index|
+      merge_overlapping_arrays(index, index + 1)
+    end
+
+    calculate_intervals
+  end
+
+  private
+
+  def merge_overlapping_arrays(start, next_index)
+    return if next_index == @array.length
+
+    initial_sub_array = @array[start]
+    next_sub_array = @array[next_index]
+
+    return if next_sub_array.nil?
+
+    if next_sub_array[0] < initial_sub_array[1]
+      new_sub_array = [initial_sub_array[0], next_sub_array[1]]
+      @array.delete_if { |a| a == initial_sub_array }
+      @array.delete_if { |a| a == next_sub_array }
+      @array.unshift(new_sub_array)
+    end
+
+    merge_overlapping_arrays(start, next_index + 1)
+  end
+
+  def calculate_intervals
+    total_sum = 0
+    @array.each do |sub_array|
+      total_sum += sub_array[1] - sub_array[0]
+    end
+
+    puts total_sum
+  end
+end
+
+# EXECUTION --------------------------------
+
+array = [[1, 2], [6, 10], [11, 15]] # ==> 9
+# array = [[1, 4], [7, 10], [3, 5]] # ==> 7
+# array = [[1, 5], [10, 20], [1, 6], [16, 19], [5, 11]] # ==> 19
+
+sum_intervals = SumIntervals.new(array)
+sum_intervals.calculate
